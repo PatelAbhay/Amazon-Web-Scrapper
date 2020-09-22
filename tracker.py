@@ -42,11 +42,19 @@ while True:
         saveList()
     elif choice == "3":
         removeName = input("Enter the name of the product:\n")
-        removeItem(removeName)
+        prevLen = len(saved_links)
+        for i in range(0, len(saved_links)):
+            if removeName == saved_links[i][0]:
+                saved_links.pop(i)
+                break
+        if prevLen == len(saved_links):
+            print("The Product Name was not found!")
+
     elif choice == "4":
         track()
     elif choice == "5":
-        printList()
+        for link in saved_links:
+            print(link)
     elif choice == "6":
         quit()
     else:
