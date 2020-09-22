@@ -1,5 +1,6 @@
 import requests
 import os
+from bs4 import BeautifulSoup
 
 path = os.getcwd()
 dir_list = os.listdir(path)
@@ -13,6 +14,26 @@ saved_links = []
         saved_links.append(line)
         line = saved_file.readline()
 '''
+
+
+def track():
+    header = {
+        "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'
+    }
+
+    while True:
+        for link in saved_links:
+            track_page = requests.get(link[1], headers=header)
+            scrapper = BeautifulSoup(track_page.content, 'html.parser')
+
+            product_title = scrapper.find(id="productTitle").getText().strip()
+            product_price = scrapper.find(
+                id="priceblock_ourprice").getText().strip()
+            available = scrapper.find(id="availability").getText().strip()
+
+            print("\nProduct Name : " + product_title)
+            print("Current Listing Price : " + product_price)
+            print("Availability : " + available + "\n")
 
 
 def saveList():
@@ -34,20 +55,20 @@ while True:
     choice = input("What would you like to do?\n")
 
     if choice == "1":
-        productName = input("Enter the product name:\n")
+        product_name = input("Enter the product name:\n")
         URL = input("Enter the link of the product:\n")
-        saved_links.append([productName, URL])
+        saved_links.append([product_name, URL])
         print("This product will be tracked\n")
     elif choice == "2":
         saveList()
     elif choice == "3":
-        removeName = input("Enter the name of the product:\n")
-        prevLen = len(saved_links)
+        remove_name = input("Enter the name of the product:\n")
+        prev_len = len(saved_links)
         for i in range(0, len(saved_links)):
-            if removeName == saved_links[i][0]:
+            if remove_name == saved_links[i][0]:
                 saved_links.pop(i)
                 break
-        if prevLen == len(saved_links):
+        if prev_len == len(saved_links):
             print("The Product Name was not found!")
 
     elif choice == "4":
