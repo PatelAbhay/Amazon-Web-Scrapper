@@ -21,19 +21,18 @@ def track():
         "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'
     }
 
-    while True:
-        for link in saved_links:
-            track_page = requests.get(link[1], headers=header)
-            scrapper = BeautifulSoup(track_page.content, 'html.parser')
+    for link in saved_links:
+        track_page = requests.get(link[1], headers=header)
+        scrapper = BeautifulSoup(track_page.content, 'html.parser')
 
-            product_title = scrapper.find(id="productTitle").getText().strip()
-            product_price = scrapper.find(
-                id="priceblock_ourprice").getText().strip()
-            available = scrapper.find(id="availability").getText().strip()
+        product_title = scrapper.find(id="productTitle").getText().strip()
+        product_price = scrapper.find(
+            id="priceblock_ourprice").getText().strip()
+        available = scrapper.find(id="availability").getText().strip()
 
-            print("\nProduct Name : " + product_title)
-            print("Current Listing Price : " + product_price)
-            print("Availability : " + available + "\n")
+        print("\nProduct Name : " + product_title)
+        print("Current Listing Price : " + product_price)
+        print("Availability : " + available + "\n")
 
 
 def saveList():
@@ -73,6 +72,7 @@ while True:
 
     elif choice == "4":
         track()
+
     elif choice == "5":
         for link in saved_links:
             print(link)
