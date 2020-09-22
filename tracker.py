@@ -1,6 +1,7 @@
 import requests
 import os
 from bs4 import BeautifulSoup
+import time
 
 path = os.getcwd()
 dir_list = os.listdir(path)
@@ -21,8 +22,8 @@ def track():
         "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'
     }
 
-    for link in saved_links:
-        track_page = requests.get(link[1], headers=header)
+    for i in range(0, len(saved_links)):
+        track_page = requests.get(saved_links[i][1], headers=header)
         scrapper = BeautifulSoup(track_page.content, 'html.parser')
 
         product_title = scrapper.find(id="productTitle").getText().strip()
@@ -71,8 +72,12 @@ while True:
             print("The Product Name was not found!")
 
     elif choice == "4":
-        track()
-
+        try:
+            while True:
+                track()
+                time.sleep(5)
+        except KeyboardInterrupt:
+            pass
     elif choice == "5":
         for link in saved_links:
             print(link)
