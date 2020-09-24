@@ -7,14 +7,18 @@ path = os.getcwd()
 dir_list = os.listdir(path)
 saved_links = []
 
-'''if "savedProductLinks.txt" in dir_list:
+if "savedProductLinks.txt" in dir_list:
     saved_file = open("savedProductLinks.txt", "r")
     line = saved_file.readline()
 
-    while line != None:
-        saved_links.append(line)
+    while line:
+        p_name = line.split(" : ")[0]
+        p_link = line.split(" : ")[1]
+        saved_links.append([p_name, p_link])
         line = saved_file.readline()
-'''
+
+    saved_file.close()
+    print("Loaded saved links from file\n")
 
 
 def track():
@@ -50,7 +54,8 @@ while True:
     print("3 : Remove Item from Product List")
     print("4 : Track in the background")
     print("5 : Print Product List")
-    print("6 : Quit Program")
+    print("6 : Clear Product List")
+    print("7 : Quit Program")
 
     choice = input("What would you like to do?\n")
 
@@ -79,9 +84,20 @@ while True:
         except KeyboardInterrupt:
             pass
     elif choice == "5":
-        for link in saved_links:
-            print(link)
+        if len(saved_links) == 0:
+            print("Product List is Empty")
+        else:
+            for link in saved_links:
+                print(link)
+        print()
     elif choice == "6":
+        saved_links.clear()
+        print("Product List has been cleared")
+        if "savedProductLinks.txt" in dir_list:
+            saved_file = open("savedProductLinks.txt", "w").close()
+            print("Cleared Contents in File")
+        print()
+    elif choice == "7":
         quit()
     else:
-        print("That is not a valid option")
+        print("That is not a valid option\n")
