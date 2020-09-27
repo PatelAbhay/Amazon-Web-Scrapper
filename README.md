@@ -14,7 +14,7 @@ links.
         * By Price
         * Shipping Cost/Prime Availability
         * Number of Stars
-
+* Fix bug where the tracker fails to get product price on the third iteration
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
