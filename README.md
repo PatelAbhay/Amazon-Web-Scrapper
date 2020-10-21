@@ -1,9 +1,10 @@
 # AmazonWebScrapper
 
-This is a console webscrapper that you can use to track prices in Amazon.  
+This is a console based webscrapper that you can use to track prices in Amazon.  
 The user inputs the link of the product they wish to track and can have the 
 application running in the background. Application can also track multiple 
-links.
+links. Currently a single page scrapper is fully implemented whereas the multiple 
+page scrapper is in the works.
 
 ## To-Do List
 * Make a GUI for better User Experience
@@ -14,7 +15,7 @@ links.
         * By Price
         * Shipping Cost/Prime Availability
         * Number of Stars
-* Fix bug where the tracker fails to get product price on the third iteration
+* Fix bug where the tracker fails to get product price on the third iteration (present only in master branch)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
